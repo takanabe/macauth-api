@@ -14,12 +14,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'annotate'
 gem 'rack-dev-mark'
-gem 'global'
+# gem 'global'
 gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
 
 
-group :development, :test do
+group :development, :test, :local do
   gem 'guard-livereload', require: false
   gem 'rails-erd'
   gem 'spring-commands-rspec'
@@ -43,7 +43,7 @@ group :development, :test do
  # Display format
   gem 'hirb'
   gem 'hirb-unicode'
-  gem 'rails-flog', require: 'flog'
+  # gem 'rails-flog', require: 'flog'
   gem 'awesome_print'
   gem 'quiet_assets'
 
