@@ -22,14 +22,10 @@ default: &default
 local:
   <<: *default
   database: mackun2_local
-  password: root
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: mackun2_development
-  username: root
-  password: root
   host: localhost
 
 test:

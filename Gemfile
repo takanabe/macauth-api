@@ -19,7 +19,7 @@ gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
 
 
-group :development, :test do
+group :development, :test, :local do
   gem 'guard-livereload', require: false
   gem 'rails-erd'
   gem 'spring-commands-rspec'
