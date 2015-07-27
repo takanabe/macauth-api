@@ -15,7 +15,7 @@ class MacAddressesController < ApplicationController
 
   # POST /mac_addresses
   def create
-    @mac_address = Article.new(mac_address_params)
+    @mac_address = MacAddress.new(mac_address_params)
 
     if @mac_address.save
       render json: @mac_address, status: :created, location: @mac_address
@@ -26,7 +26,7 @@ class MacAddressesController < ApplicationController
 
   # PATCH/PUT /mac_addresses/1
   def update
-    @mac_address = Article.find(params[:id])
+    @mac_address = MacAddress.find(params[:id])
 
     if @mac_address.update(mac_address_params)
       head :no_content
@@ -48,8 +48,8 @@ class MacAddressesController < ApplicationController
       @mac_addresses = MacAddress.find(params[:id])
     end
 
-    # def mac_address_params
-    #   params.require(:mac_address).permit(:title, :name)
-    # end
+    def mac_address_params
+      params.require(:mac_address).permit(:id, :ug_id, :vlan_id, :information)
+    end
 
 end

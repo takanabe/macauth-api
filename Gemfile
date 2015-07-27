@@ -49,6 +49,7 @@ group :development, :test, :local do
 
   # Test
   gem "rspec-rails"
+  gem "autodoc"
   gem 'guard', '2.6.1'
   gem 'guard-rspec', '2.5.0'
   gem "shoulda-matchers"

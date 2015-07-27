@@ -29,24 +29,63 @@ describe "MacAddresses" do
         expect(json[1][:vlan_id]).to eq('vlan1')
         expect(json[1][:information]).to eq('macbook air')
       end
+    end
+  end
+
+  describe "POST /mac_addresses" do
+    context "with valid parameters" do
+      before do
+        @params = {mac_address: FactoryGirl.attributes_for(:mac_address)}
+      end
+
+      it "should create a new mac_address and return 201 Created" do
+        post "/mac_addresses", @params
+        expect(response).to be_success
+        expect(response.status).to eq(201)
+      end
+
+      it "increase " do
+        expect{
+          post "/mac_addresses", @params
+        }.to change(MacAddress, :count).by(1)
+      end
+    end
+
+    context "with invalid parameters" do
+      before do
+        # @params = {mac_address: FactoryGirl.attributes_for(:mac_address), dummy_id: "test"}
+        @params = {mac_address: {invalid_id: 400}}
+      end
+
+      it "return error message" do
+        skip
+      end
+
+      it "returns 400 Bad Request" do
+        post "/mac_addresses", @params
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+
+      it "does't change the number of mac_addresses" do
+        expect{
+          post "/mac_addresses", @params
+        }.not_to change(MacAddress, :count)
+      end
 
     end
   end
 
-  describe "POST /macaddrs" do
+  describe "DELETE /mac_addresses" do
     skip
   end
 
-  describe "DELETE /macaddrs" do
-    skip
-  end
-
-  describe "PATCH /macaddrs" do
+  describe "PATCH /mac_addresses" do
     skip
   end
 
   #todo:  single get,create, delete, update api
-  describe "GET /macaddrs/:id" do
+  describe "GET /mac_addresses/:id" do
     before do
       @mac_address1 = FactoryGirl.create(:mac_address)
       #TODO: colon
@@ -91,15 +130,15 @@ describe "MacAddresses" do
     end
   end
 
-  describe "POST /macaddrs/:id" do
+  describe "POST /mac_addresses/:id" do
     skip
   end
 
-  describe "DELETE /macaddrs/:id" do
+  describe "DELETE /mac_addresses/:id" do
     skip
   end
 
-  describe "PATCH /macaddrs/:id" do
+  describe "PATCH /mac_addresses/:id" do
     skip
   end
 
