@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :mac_address do
-    id "MyString"
-    ug_id "MyString"
-    vlan_id "MyString"
-    information "MyString"
+    id "aa:bb:cc:dd:ee:ff"
+    ug_id "ug1"
+    vlan_id "vlan1"
+    information "macbook air"
   end
 end
