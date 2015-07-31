@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: mac_addresses
+#
+#  id            :string(255)      not null, primary key
+#  user_group_id :string(255)      not null
+#  vlan_id       :integer
+#  information   :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 describe MacAddress do
@@ -6,7 +18,7 @@ describe MacAddress do
   subject{@mac_address}
 
   it {is_expected.to respond_to(:id)}
-  it {is_expected.to respond_to(:ug_id)}
+  it {is_expected.to respond_to(:user_group_id)}
   it {is_expected.to respond_to(:vlan_id)}
   it {is_expected.to respond_to(:information)}
 
@@ -15,8 +27,8 @@ describe MacAddress do
     it {is_expected.not_to be_valid}
   end
 
-  context "without ug_id" do
-    before {@mac_address.ug_id = '  '}
+  context "without user_group_id" do
+    before {@mac_address.user_group_id = '  '}
     it {is_expected.not_to be_valid}
   end
 
@@ -26,8 +38,8 @@ describe MacAddress do
   end
 
 
-  context "with small letters" do
-    before {@mac_address.id = "a" * 12}
+  context "with capital letters" do
+    before {@mac_address.id = "A" * 12}
     it {is_expected.not_to be_valid}
   end
 

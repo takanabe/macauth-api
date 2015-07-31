@@ -49,7 +49,7 @@ class MacAddressesController < ApplicationController
     end
 
     def mac_address_params
-      params.require(:mac_address).permit(:id, :ug_id, :vlan_id, :information)
+      params.require(:mac_address).permit(:id, :user_group_id, :vlan_id, :information)
     end
 
 end

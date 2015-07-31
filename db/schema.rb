@@ -11,19 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728083620) do
+ActiveRecord::Schema.define(version: 20150728150106) do
 
   create_table "mac_addresses", force: :cascade do |t|
-    t.string   "ug_id",       limit: 255, null: false
-    t.string   "vlan_id",     limit: 255
-    t.string   "information", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "user_group_id", limit: 255, null: false
+    t.integer  "vlan_id",       limit: 4
+    t.string   "information",   limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "mac_addresses", ["id"], name: "index_mac_addresses_on_id", unique: true, using: :btree
 
   create_table "user_groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vlans", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

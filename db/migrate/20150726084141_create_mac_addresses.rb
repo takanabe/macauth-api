@@ -2,8 +2,8 @@ class CreateMacAddresses < ActiveRecord::Migration
   def change
     create_table :mac_addresses, id: false do |t|
       t.string :id, null: false
-      t.string :ug_id, null: false
-      t.string :vlan_id
+      t.string :user_group_id, null: false
+      t.integer :vlan_id
       t.string :information
 
       t.timestamps null: false

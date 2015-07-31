@@ -4,36 +4,36 @@ describe "UserGroups" do
 
   #todo:  bulk get,create, delete, update api
   describe "GET /userGroups" do
-    pending
+    skip
   end
 
   describe "POST /userGroups" do
-    pending
+    skip
   end
 
   describe "DELETE /userGroups" do
-    pending
+    skip
   end
 
   describe "PATCH /userGroups" do
-    pending
+    skip
   end
 
   #todo:  single get,create, delete, update api
   describe "GET /userGroups/:id" do
-    pending
+    skip
   end
 
   describe "POST /userGroups/:id" do
-    pending
+    skip
   end
 
   describe "DELETE /userGroups/:id" do
-    pending
+    skip
   end
 
   describe "PATCH /userGroups/:id" do
-    pending
+    skip
   end
 
 end
