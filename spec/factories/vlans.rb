@@ -1,14 +1,15 @@
 # == Schema Information
 #
-# Table name: user_groups
+# Table name: vlans
 #
-#  id         :string(255)      not null, primary key
+#  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
-  factory :user_group do
-    id 'userGroup1'
+  factory :vlan do
+    id 1000
   end
+
 end
