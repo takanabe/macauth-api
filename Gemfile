@@ -52,6 +52,8 @@ group :development, :test, :local do
   gem "autodoc"
   gem 'guard', '2.6.1'
   gem 'guard-rspec', '2.5.0'
+  gem "guard-rubocop"
+  gem "guard-spring"
   gem "shoulda-matchers"
   gem "factory_girl_rails"
   gem 'selenium-webdriver', '2.35.1'
