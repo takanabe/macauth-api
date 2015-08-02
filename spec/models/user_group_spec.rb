@@ -10,5 +10,29 @@
 require 'spec_helper'
 
 describe UserGroup do
-  skip "add some examples to (or delete) #{__FILE__}"
+
+  let(:user_group) {FactoryGirl.create(:user_group)}
+
+
+  subject{user_group}
+
+  it {is_expected.to respond_to(:id)}
+
+  context "with invalid format of id" do
+    before{user_group.id = 'invalid_id'}
+    it {is_expected.not_to be_valid}
+  end
+
+  context "without id" do
+    before {user_group.id = '  '}
+    it {is_expected.not_to be_valid}
+  end
+
+  context "with id existing already" do
+    before do
+      user_group_with_same_id = user_group.dup
+    end
+
+    it {is_expected.to validate_uniqueness_of(:id)}
+  end
 end
