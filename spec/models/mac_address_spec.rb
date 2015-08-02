@@ -22,6 +22,13 @@ describe MacAddress do
   it {is_expected.to respond_to(:vlan_id)}
   it {is_expected.to respond_to(:information)}
 
+  context 'with valid parameters' do
+    it {expect(@mac_address.id).to eq('aabbccddeeff')}
+    it {expect(@mac_address.user_group_id).to eq('ug1')}
+    it {expect(@mac_address.vlan_id).to eq(1000)}
+    it {expect(@mac_address.information).to eq('macbook air')}
+  end
+
   context "without id" do
     before {@mac_address.id = '  '}
     it {is_expected.not_to be_valid}
