@@ -13,7 +13,7 @@
 FactoryGirl.define do
   factory :mac_address do
     id "aabbccddeeff"
-    user_group_id "ug1"
+    user_group_id "UG1"
     vlan_id 1000
     information "macbook air"
   end

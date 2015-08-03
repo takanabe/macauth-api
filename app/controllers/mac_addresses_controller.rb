@@ -35,9 +35,9 @@ class MacAddressesController < ApplicationController
     end
   end
 
-  # DELETE /mac_addresses/1
+  # DELETE /mac_addresses/aabbccddeeff
   def destroy
-    @mac_address.destroy
+    @mac_addresses.destroy
 
     head :no_content
   end
