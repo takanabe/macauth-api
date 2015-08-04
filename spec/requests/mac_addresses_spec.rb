@@ -30,11 +30,9 @@ describe "MacAddresses" do
     end
   end
 
-  #todo:  single get,create, delete, update api
   describe "GET /mac_addresses/:id" do
     before do
       @mac_address1 = FactoryGirl.create(:mac_address)
-      #TODO: colon
       get "/mac_addresses/aabbccddeeff"
     end
 
@@ -42,13 +40,12 @@ describe "MacAddresses" do
 
     context 'when a request is succeeded' do
 
-      it 'should return 200 OK' do
+      it 'returns 200 OK' do
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
 
-      it 'should return macaddress info hash' do
-        #TODO: refacter
+      it 'returns macaddress information hash',autodoc: true do
         expect(json[:id]).to eq('aabbccddeeff')
         expect(json[:user_group_id]).to eq('UG1')
         expect(json[:vlan_id]).to eq(1000)
@@ -56,7 +53,7 @@ describe "MacAddresses" do
       end
     end
 
-    context 'when a request is succeeded' do
+    context 'when an id is deleted' do
       before do
         @mac_address1.destroy
       end
@@ -67,22 +64,10 @@ describe "MacAddresses" do
       end
     end
 
-    context 'with invalid request' do
-      it 'returns 400 Bad Request' do
-        skip
-      end
-    end
-
     context "with non-existing mac_address id" do
       it "should returns 404" do
         get "/mac_address/zzzzzzzzzzzz"
         expect(response.status).to eq(404)
-      end
-    end
-
-    context 'when the error occurred internal server' do
-      it 'returns 500 Internal Server Error' do
-        skip
       end
     end
   end
