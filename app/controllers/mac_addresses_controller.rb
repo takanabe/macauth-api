@@ -15,13 +15,18 @@ class MacAddressesController < ApplicationController
 
   # POST /mac_addresses
   def create
-    @mac_address = MacAddress.new(mac_address_params)
+    mac_addresses = []
+    mac_address_params_array = mac_address_params
 
-    if @mac_address.save
-      render json: @mac_address, status: :created, location: @mac_address
-    else
-      render json: @mac_address.errors, status: :unprocessable_entity
+    MacAddress.transaction do
+      mac_address_params_array.each do |p|
+        mac_addresses << MacAddress.new(p)
+      end
+      raise "Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
     end
+      render json: { succeeded: '201 Created' }, status: 201
+    rescue => e
+      render json: { error: '422 Unprocessable Entity'}, status: :unprocessable_entity
   end
 
   # PATCH/PUT /mac_addresses/1
@@ -49,7 +54,6 @@ class MacAddressesController < ApplicationController
     end
 
     def mac_address_params
-      params.require(:mac_address).permit(:id, :user_group_id, :vlan_id, :information)
+      params.require(:mac_address).map { |m| m.permit(:id, :user_group_id, :vlan_id, :information)}
     end
-
 end

@@ -78,35 +78,64 @@ describe "MacAddresses" do
         @params = {mac_address: FactoryGirl.attributes_for(:mac_address)}
       end
 
-      it "should create a new mac_address and return 201 Created" do
+      it "creates a new mac_address and return 201 Created",autodoc: true do
         post "/mac_addresses", @params
         expect(response).to be_success
         expect(response.status).to eq(201)
       end
 
-      it "increase " do
+      it "increases the number of Mac Addresses record" do
         expect{
           post "/mac_addresses", @params
         }.to change(MacAddress, :count).by(1)
       end
     end
 
-    context "with invalid parameters" do
+    #TODO
+    # context "with multiple valid parameters" do
+    #   before do
+    #     @params = {mac_address: FactoryGirl.attributes_for(:mac_address)}
+    #   end
+    #
+    #   it "creates a new mac_address and return 201 Created",autodoc: true do
+    #     post "/mac_addresses", @params
+    #     expect(response).to be_success
+    #     expect(response.status).to eq(201)
+    #   end
+    #
+    #   it "increases the number of Mac Addresses record" do
+    #     expect{
+    #       post "/mac_addresses", @params
+    #     }.to change(MacAddress, :count).by(3)
+    #   end
+    # end
+
+    context "with invalid request" do
       before do
-        @params = {mac_address: FactoryGirl.create(:mac_address)}
-        @params = {mac_address: {invalid_id: 400}}
+        @params = {a: "invalid params"}
+        post "/mac_addresses", @params
       end
 
-      it "return error message" do
-        skip
+      it "returns 400 Bad Request" do
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
       end
 
-      it "returns 400 Bad Rquest" do
-        skip
+      it "does't change the number of mac_addresses" do
+        expect{
+          post "/mac_addresses", @params
+        }.not_to change(MacAddress, :count)
+      end
+    end
+
+    context "with invalid parameter format" do
+      before do
+        @params = {mac_address: FactoryGirl.attributes_for(:mac_address)}
+        @params[:mac_address][:id] = "invalid id length"
+        post "/mac_addresses", @params
       end
 
       it "returns 422 Bad Request" do
-        post "/mac_addresses", @params
         expect(response).not_to be_success
         expect(response.status).to eq(422)
       end
@@ -116,7 +145,6 @@ describe "MacAddresses" do
           post "/mac_addresses", @params
         }.not_to change(MacAddress, :count)
       end
-
     end
   end
 
