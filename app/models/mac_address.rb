@@ -15,7 +15,10 @@ class MacAddress < ActiveRecord::Base
   # belongs_to :user_group
 
   VALID_ID_REGEX = /\A[a-z0-9]{12}\z/
+  VALID_USER_GROUP_ID_REGEX = /\A[A-Z0-9-]+\z/
+
   validates :id, presence: true, length: {is: 12}, format: {with: VALID_ID_REGEX},
             uniqueness: true
-  validates :user_group_id, presence: true
+
+  validates :user_group_id, presence: true, format: {with: VALID_USER_GROUP_ID_REGEX}
 end

@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::API
   rescue_from Exception, with: :handle_500
 
+  rescue_from ActionView::MissingTemplate, with: :handle_400
   rescue_from ActionController::ParameterMissing, with: :handle_400
   # rescue_from ApplicationController::Forbidden, with: :handle_403
   # rescue_from ApplicationController::IpAddressRejected, with: :handle_403
   rescue_from ActionController::RoutingError, with: :handle_404
   rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
-
 
   def handle_500(exception = nil)
     logger.info "Rendering 500 with exception: #{exception.message}" if exception

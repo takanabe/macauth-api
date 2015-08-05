@@ -17,6 +17,7 @@ gem 'rack-dev-mark'
 # gem 'global'
 gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
+gem 'activerecord-import'
 
 
 group :development, :test, :local do

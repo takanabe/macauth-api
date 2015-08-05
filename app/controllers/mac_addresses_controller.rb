@@ -1,4 +1,5 @@
 class MacAddressesController < ApplicationController
+
   before_action :set_mac_address, only: [:show, :update, :destroy]
 
   # GET /mac_addresses
@@ -15,12 +16,19 @@ class MacAddressesController < ApplicationController
 
   # POST /mac_addresses
   def create
-    @mac_address = MacAddress.new(mac_address_params)
+    mac_addresses = []
+    mac_address_params_array = mac_address_params
 
-    if @mac_address.save
-      render json: @mac_address, status: :created, location: @mac_address
-    else
-      render json: @mac_address.errors, status: :unprocessable_entity
+    begin
+      ActiveRecord::Base.transaction do
+        mac_address_params_array.each do |p|
+          mac_addresses.push MacAddress.new(p)
+        end
+        raise "Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
+      end
+      render json: { succeeded: '201 Created' }, status: 201
+    rescue => e
+      render json: { error: '422 Unprocessable Entity'}, status: :unprocessable_entity
     end
   end
 
@@ -28,16 +36,16 @@ class MacAddressesController < ApplicationController
   def update
     @mac_address = MacAddress.find(params[:id])
 
-    if @mac_address.update(mac_address_params)
+    if @mac_address.update(mac_address_params.first)
       head :no_content
     else
       render json: @mac_address.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /mac_addresses/1
+  # DELETE /mac_addresses/aabbccddeeff
   def destroy
-    @mac_address.destroy
+    @mac_addresses.destroy
 
     head :no_content
   end
@@ -49,7 +57,6 @@ class MacAddressesController < ApplicationController
     end
 
     def mac_address_params
-      params.require(:mac_address).permit(:id, :user_group_id, :vlan_id, :information)
+      params.require(:mac_address).map { |m| m.permit(:id, :user_group_id, :vlan_id, :information)}
     end
-
 end
