@@ -1,4 +1,5 @@
 class MacAddressesController < ApplicationController
+
   before_action :set_mac_address, only: [:show, :update, :destroy]
 
   # GET /mac_addresses
@@ -18,15 +19,17 @@ class MacAddressesController < ApplicationController
     mac_addresses = []
     mac_address_params_array = mac_address_params
 
-    MacAddress.transaction do
-      mac_address_params_array.each do |p|
-        mac_addresses << MacAddress.new(p)
+    begin
+      ActiveRecord::Base.transaction do
+        mac_address_params_array.each do |p|
+          mac_addresses.push MacAddress.new(p)
+        end
+        raise "Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
       end
-      raise "Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
-    end
       render json: { succeeded: '201 Created' }, status: 201
     rescue => e
       render json: { error: '422 Unprocessable Entity'}, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /mac_addresses/1
