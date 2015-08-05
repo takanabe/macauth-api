@@ -9,6 +9,6 @@
 
 FactoryGirl.define do
   factory :user_group do
-    id 'UG-1'
+    id 'UG1'
   end
 end

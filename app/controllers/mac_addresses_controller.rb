@@ -9,7 +9,7 @@ class MacAddressesController < ApplicationController
     render json: @mac_addresses
   end
 
-  # GET /mac_addresses/1
+  # GET /mac_addresses/aabbccddeeff
   def show
     render json: @mac_addresses
   end
@@ -32,7 +32,7 @@ class MacAddressesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /mac_addresses/1
+  # PATCH/PUT /mac_addresses/aabbccddeeff
   def update
     @mac_address = MacAddress.find(params[:id])
 
