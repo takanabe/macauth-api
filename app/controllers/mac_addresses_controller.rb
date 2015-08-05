@@ -36,7 +36,7 @@ class MacAddressesController < ApplicationController
   def update
     @mac_address = MacAddress.find(params[:id])
 
-    if @mac_address.update(mac_address_params)
+    if @mac_address.update(mac_address_params.first)
       head :no_content
     else
       render json: @mac_address.errors, status: :unprocessable_entity

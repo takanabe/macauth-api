@@ -139,7 +139,6 @@ describe "MacAddresses" do
       end
 
       it "returns 422 Bad Request" do
-        binding.pry
         expect(response).not_to be_success
         expect(response.status).to eq(422)
       end
@@ -164,59 +163,32 @@ describe "MacAddresses" do
     end
   end
 
-  describe "DELETE /mac_addresses" do
-    context 'with valid request' do
-      it 'returns 204 No Content' do
-        skip
-      end
-    end
-
-    context 'with invalid request' do
-      it 'returns 400 Bad Request' do
-        skip
-      end
-    end
-
-    context 'when the resource is not found' do
-      it 'returns 404 Not Found' do
-        skip
-      end
-    end
-
-    context 'when the error occurred internal server' do
-      it 'returns 500 Internal Server Error' do
-        skip
-      end
-    end
-  end
-
-
-  # 必要か？
-  describe "POST /mac_addresses/:id" do
-    context 'when the request is succeeded' do
-      it "should create a new mac_address and return 201 Created" do
-        skip
-      end
-    end
-
-    context 'with invalid request' do
-      it 'returns 400 Bad Request' do
-        skip
-      end
-    end
-
-    context 'when the requested is not found' do
-      it 'returns 404 Not Found' do
-        skip
-      end
-    end
-
-    context 'when the error occurred internal server' do
-      it 'returns 500 Internal Server Error' do
-        skip
-      end
-    end
-  end
+  #NOTE We don't implement bulk delete function
+  # describe "DELETE /mac_addresses" do
+  #   context 'with valid request' do
+  #     it 'returns 204 No Content' do
+  #       skip
+  #     end
+  #   end
+  #
+  #   context 'with invalid request' do
+  #     it 'returns 400 Bad Request' do
+  #       skip
+  #     end
+  #   end
+  #
+  #   context 'when the resource is not found' do
+  #     it 'returns 404 Not Found' do
+  #       skip
+  #     end
+  #   end
+  #
+  #   context 'when the error occurred internal server' do
+  #     it 'returns 500 Internal Server Error' do
+  #       skip
+  #     end
+  #   end
+  # end
 
   describe "DELETE /mac_addresses/:id" do
     before do
@@ -232,20 +204,23 @@ describe "MacAddresses" do
     end
 
     context 'with valid request' do
+      before do
+        delete '/mac_addresses/aabbccddeeff'
+      end
+
       it 'returns 204 No Content' do
-        skip
+        expect(response).to be_success
+        expect(response.status).to eq(204)
       end
     end
 
     context 'with invalid request' do
-      it 'returns 400 Bad Request' do
-        skip
+      before do
+        delete "/mac_addresses/afafaf"
       end
-    end
-
-    context 'when the resource is not found' do
-      it 'returns 404 Not Found' do
-        skip
+      it 'returns 400 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(404)
       end
     end
 
@@ -258,21 +233,54 @@ describe "MacAddresses" do
   end
 
   describe "PATCH /mac_addresses/:id" do
+    before do
+      @mac_address = FactoryGirl.create(:mac_address)
+      @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
+    end
+
+    subject {@mac_address}
+
     context 'with valid request' do
+      before do
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
       it 'returns 204 No Content' do
-        skip
+        expect(response).to be_success
+        expect(response.status).to eq(204)
       end
     end
 
     context 'with invalid request' do
+      before do
+        @params = {a: "invalid request"}
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
+
       it 'returns 400 Bad Request' do
-        skip
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+    end
+
+    context 'with invalid id length request' do
+      before do
+        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address,id: "invalid id length")]}
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
+
+      it 'returns 422 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
 
     context 'when the resource is not found' do
+      before do
+        patch '/mac_addresses/invlid', @params
+      end
       it 'returns 404 Not Found' do
-        skip
+        expect(response).not_to be_success
+        expect(response.status).to eq(404)
       end
     end
 
