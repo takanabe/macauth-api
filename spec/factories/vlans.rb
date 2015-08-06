@@ -11,5 +11,4 @@ FactoryGirl.define do
   factory :vlan do
     id 1000
   end
-
 end
