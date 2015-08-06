@@ -24,7 +24,7 @@ describe MacAddress do
 
   context 'with valid parameters' do
     it {expect(@mac_address.id).to eq('aabbccddeeff')}
-    it {expect(@mac_address.user_group_id).to eq('ug1')}
+    it {expect(@mac_address.user_group_id).to eq('UG1')}
     it {expect(@mac_address.vlan_id).to eq(1000)}
     it {expect(@mac_address.information).to eq('macbook air')}
   end
