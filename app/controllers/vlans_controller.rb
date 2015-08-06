@@ -8,7 +8,7 @@ class VlansController < ApplicationController
     render json: @vlans
   end
 
-  # GET /vlans/1
+  # GET /vlans/1000
   def show
     render json: @vlans
   end
@@ -31,18 +31,19 @@ class VlansController < ApplicationController
     end
   end
 
-  # PATCH/PUT /vlans/1
+  # PATCH/PUT /vlans/1000
   def update
     @vlan = Vlan.find(params[:id])
 
-    if @vlan.update(vlan_params)
+    if @vlan.update(vlan_params.first)
       head :no_content
     else
       render json: @vlan.errors, status: :unprocessable_entity
     end
+
   end
 
-  # DELETE /vlans/1
+  # DELETE /vlans/1000
   def destroy
     @vlan.destroy
 

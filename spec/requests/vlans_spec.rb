@@ -198,6 +198,62 @@ describe "Vlans" do
   end
 
   describe "PATCH /vlans/:id" do
+    before do
+      @vlan = FactoryGirl.create(:vlan)
+      @params = {vlan: [FactoryGirl.attributes_for(:vlan)]}
+    end
+
+    subject {@vlan}
+
+    context 'with valid request' do
+      before do
+        patch '/vlans/1000', @params
+      end
+      it 'returns 204 No Content' do
+        expect(response).to be_success
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'with invalid request' do
+      before do
+        @params = {a: "invalid request"}
+        patch '/vlans/1000', @params
+      end
+
+      it 'returns 400 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+    end
+
+    context 'with invalid id length request' do
+      before do
+        @params = {vlan: [FactoryGirl.attributes_for(:vlan,id: "invalid id length")]}
+        patch '/vlans/1000', @params
+      end
+
+      it 'returns 422 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when the resource is not found' do
+      before do
+        patch '/vlans/invlid', @params
+      end
+      it 'returns 404 Not Found' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'when the error occurred internal server' do
+      it 'returns 500 Internal Server Error' do
+        skip
+      end
+    end
   end
 
 end
