@@ -35,6 +35,16 @@ class UserGroupsController < ApplicationController
     head :no_content
   end
 
+  def update
+    @user_group = UserGroup.find(params[:id])
+
+    if @user_group.update(user_group_params.first)
+      head :no_content
+    else
+      render json: @user_group.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user_group

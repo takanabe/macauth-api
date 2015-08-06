@@ -201,15 +201,15 @@ describe "UserGroups" do
 
   describe "PATCH /userGroups/:id" do
     before do
-      @mac_address = FactoryGirl.create(:mac_address)
-      @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
+      @user_group = FactoryGirl.create(:user_group)
+      @params = {user_group: [FactoryGirl.attributes_for(:user_group)]}
     end
 
-    subject {@mac_address}
+    subject {@user_group}
 
     context 'with valid request' do
       before do
-        patch '/mac_addresses/aabbccddeeff', @params
+        patch '/user_groups/UG1', @params
       end
       it 'returns 204 No Content' do
         expect(response).to be_success
@@ -220,7 +220,7 @@ describe "UserGroups" do
     context 'with invalid request' do
       before do
         @params = {a: "invalid request"}
-        patch '/mac_addresses/aabbccddeeff', @params
+        patch '/user_groups/UG1', @params
       end
 
       it 'returns 400 Bad Request' do
@@ -231,8 +231,8 @@ describe "UserGroups" do
 
     context 'with invalid id length request' do
       before do
-        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address,id: "invalid id length")]}
-        patch '/mac_addresses/aabbccddeeff', @params
+        @params = {user_group: [FactoryGirl.attributes_for(:user_group,id: "invalid id length")]}
+        patch '/user_groups/UG1', @params
       end
 
       it 'returns 422 Bad Request' do
@@ -243,7 +243,7 @@ describe "UserGroups" do
 
     context 'when the resource is not found' do
       before do
-        patch '/mac_addresses/invlid', @params
+        patch '/user_groups/invlid', @params
       end
       it 'returns 404 Not Found' do
         expect(response).not_to be_success
