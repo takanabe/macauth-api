@@ -18,23 +18,23 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 187
 Content-Type: application/json; charset=utf-8
-ETag: W/"0b4a1f3ba115f15ac4ee65f8f08dd097"
+ETag: W/"419a8859d0fef020febb0f2ab472af68"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: a4583797-63b5-459e-afc3-256401ecbd24
-X-Runtime: 0.029317
+X-Request-Id: 56698b86-0344-4b90-9303-196375e57222
+X-Runtime: 0.007488
 X-XSS-Protection: 1; mode=block
 
 [
   {
     "id": "UG1",
-    "created_at": "2015-08-06T00:05:34.000Z",
-    "updated_at": "2015-08-06T00:05:34.000Z"
+    "created_at": "2015-08-06T00:18:41.000Z",
+    "updated_at": "2015-08-06T00:18:41.000Z"
   },
   {
     "id": "UG2",
-    "created_at": "2015-08-06T00:05:34.000Z",
-    "updated_at": "2015-08-06T00:05:34.000Z"
+    "created_at": "2015-08-06T00:18:41.000Z",
+    "updated_at": "2015-08-06T00:18:41.000Z"
   }
 ]
 ```
@@ -59,17 +59,17 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 92
 Content-Type: application/json; charset=utf-8
-ETag: W/"acd3d42c35c849bbf08ab28a6c927364"
+ETag: W/"4f70c1c56a018738ee69c7b0d738ce30"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 9e4c4fb3-58b5-4b8b-8f47-90b07be56d00
-X-Runtime: 0.002936
+X-Request-Id: abfc22c2-2820-4e95-a489-fa61a308e109
+X-Runtime: 0.003711
 X-XSS-Protection: 1; mode=block
 
 {
   "id": "UG1",
-  "created_at": "2015-08-06T00:05:34.000Z",
-  "updated_at": "2015-08-06T00:05:34.000Z"
+  "created_at": "2015-08-06T00:18:41.000Z",
+  "updated_at": "2015-08-06T00:18:41.000Z"
 }
 ```
 
@@ -98,8 +98,8 @@ Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 4b034eb8-9a93-4543-a70e-66ae96d0ee4b
-X-Runtime: 0.016018
+X-Request-Id: 8fe1556f-62cd-425f-8772-64c23eb8a7d3
+X-Runtime: 0.004407
 X-XSS-Protection: 1; mode=block
 
 {
@@ -132,8 +132,8 @@ Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 56cb8259-d6d8-492f-a664-511e352d6865
-X-Runtime: 0.006437
+X-Request-Id: a7a473b8-5298-44bb-ba52-32d4dd7e6200
+X-Runtime: 0.007125
 X-XSS-Protection: 1; mode=block
 
 {

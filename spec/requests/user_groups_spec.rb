@@ -137,7 +137,7 @@ describe "UserGroups" do
         expect(response.status).to eq(422)
       end
 
-      it "does't change the number of mac_addresses" do
+      it "does't change the number of user_groups" do
         expect{
           post "/user_groups", @params
         }.not_to change(UserGroup, :count)
@@ -157,22 +157,105 @@ describe "UserGroups" do
     end
   end
 
-  describe "DELETE /userGroups" do
-    skip
-  end
-
-  describe "PATCH /userGroups" do
-    skip
-  end
-
-
 
   describe "DELETE /userGroups/:id" do
-    skip
+    before do
+      @user_group1 = FactoryGirl.create(:user_group)
+      @user_group = UserGroup.all
+    end
+
+    subject {@user_group}
+    it "decreases the number of user_groups by -1" do
+      expect{
+        delete '/user_groups/UG1'
+      }.to change(UserGroup, :count).by(-1)
+    end
+
+    context 'with valid request' do
+      before do
+        delete '/user_groups/UG1'
+      end
+
+      it 'returns 204 No Content' do
+        expect(response).to be_success
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'with invalid request' do
+      before do
+        delete "/user_groups/invalid_ug"
+      end
+      it 'returns 400 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'when the error occurred internal server' do
+      it 'returns 500 Internal Server Error' do
+        skip
+      end
+    end
   end
 
   describe "PATCH /userGroups/:id" do
-    skip
+    before do
+      @mac_address = FactoryGirl.create(:mac_address)
+      @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
+    end
+
+    subject {@mac_address}
+
+    context 'with valid request' do
+      before do
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
+      it 'returns 204 No Content' do
+        expect(response).to be_success
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'with invalid request' do
+      before do
+        @params = {a: "invalid request"}
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
+
+      it 'returns 400 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+    end
+
+    context 'with invalid id length request' do
+      before do
+        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address,id: "invalid id length")]}
+        patch '/mac_addresses/aabbccddeeff', @params
+      end
+
+      it 'returns 422 Bad Request' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when the resource is not found' do
+      before do
+        patch '/mac_addresses/invlid', @params
+      end
+      it 'returns 404 Not Found' do
+        expect(response).not_to be_success
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'when the error occurred internal server' do
+      it 'returns 500 Internal Server Error' do
+        skip
+      end
+    end
   end
 
 end

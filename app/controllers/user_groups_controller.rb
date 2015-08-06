@@ -29,6 +29,12 @@ class UserGroupsController < ApplicationController
     end
   end
 
+  def destroy
+    @user_groups.destroy
+
+    head :no_content
+  end
+
   private
 
     def set_user_group
