@@ -15,12 +15,19 @@ class VlansController < ApplicationController
 
   # POST /vlans
   def create
-    @vlan = Vlan.new(vlan_params) if vlan_params[:id] != 0
+    vlans = []
+    vlan_params_array = vlan_params
 
-    if @vlan.save
-      render json: @vlan, status: :created, location: @vlan
-    else
-      render json: @vlan.errors, status: :unprocessable_entity
+    begin
+      ActiveRecord::Base.transaction do
+        vlan_params_array.each do |p|
+          vlans.push Vlan.new(p)
+        end
+        raise "Vlan Transaction Failed" unless (Vlan.import vlans).failed_instances.size == 0
+      end
+      render json: { succeeded: '201 Created' }, status: 201
+    rescue => e
+      render json: { error: '422 Unprocessable Entity'}, status: :unprocessable_entity
     end
   end
 
@@ -49,7 +56,7 @@ class VlansController < ApplicationController
     end
 
     def vlan_params
-      params.require(:vlan).permit(:id)
+      params.require(:vlan).map { |v| v.permit(:id)}
     end
 
 end

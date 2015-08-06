@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "UserGroups" do
-
-
   describe "GET /userGroups" do
     before do
       @user_group1 = FactoryGirl.create(:user_group)
