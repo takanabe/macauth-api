@@ -17,14 +17,32 @@ class MacAddressesController < ApplicationController
   # POST /mac_addresses
   def create
     mac_addresses = []
+    user_groups = []
+    new_user_groups = []
+
     mac_address_params_array = mac_address_params
+    mac_address_params_array.each do |p|
+      #FIXME rescueで例外を拾って正常処理をするのは実装として微妙(ワークアラウンド)
+      #{user_groups: [{id: "UG1"}, {id: "UG2"}]}
+      begin
+         UserGroup.find(p[:user_group_id])
+      rescue => e
+        new_user_groups.push p[:user_group_id]
+        next
+      end
+    end
 
     begin
       ActiveRecord::Base.transaction do
+        new_user_groups.uniq.each do |value|
+          user_groups.push UserGroup.new(id: "#{value}")
+        end
+        raise "UserGroup Transaction Failed" unless (UserGroup.import user_groups).failed_instances.size == 0
+
         mac_address_params_array.each do |p|
           mac_addresses.push MacAddress.new(p)
         end
-        raise "Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
+        raise "MacAddress Transaction Failed" unless (MacAddress.import mac_addresses).failed_instances.size == 0
       end
       render json: { succeeded: '201 Created' }, status: 201
     rescue => e

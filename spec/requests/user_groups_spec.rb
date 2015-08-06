@@ -34,8 +34,6 @@ describe "UserGroups" do
     let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
 
     context 'when a request is succeeded' do
-
-
       it 'returns 200 OK' do
         expect(response).to be_success
         expect(response.status).to eq(200)
@@ -70,7 +68,93 @@ describe "UserGroups" do
   end
 
   describe "POST /userGroups" do
-    skip
+    context "with valid parameters" do
+      before do
+        @params = {user_group: [FactoryGirl.attributes_for(:user_group)]}
+      end
+
+      it "creates a new user_group and return 201 Created",autodoc: true do
+        post "/user_groups", @params
+        expect(response).to be_success
+        expect(response.status).to eq(201)
+      end
+
+      it "increases the number of Mac Addresses record" do
+        expect{
+          post "/user_groups", @params
+        }.to change(UserGroup, :count).by(1)
+      end
+    end
+
+    context "with multiple valid parameters" do
+      before do
+        @user_group1 = FactoryGirl.attributes_for(:user_group)
+        @user_group2 = FactoryGirl.attributes_for(:user_group,id: 'UG2')
+        @user_group3 = FactoryGirl.attributes_for(:user_group,id: 'UG3')
+
+        @params = {user_group: [@user_group1, @user_group2, @user_group3]}
+      end
+
+      it "creates a new user_group and return 201 Created",autodoc: true do
+        post "/user_groups", @params
+        expect(response).to be_success
+        expect(response.status).to eq(201)
+      end
+
+      it "increases the number of UserGroup record" do
+        expect{
+          post "/user_groups", @params
+        }.to change(UserGroup, :count).by(3)
+      end
+    end
+
+    context "with invalid request" do
+      before do
+        @params = {a: "invalid params"}
+        post "/user_groups", @params
+      end
+
+      it "returns 400 Bad Request" do
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+
+      it "does't change the number of user groups" do
+        expect{
+          post "/user_groups", @params
+        }.not_to change(UserGroup, :count)
+      end
+    end
+
+    context "with invalid parameter format" do
+      before do
+        @params = {user_group: [FactoryGirl.attributes_for(:user_group),id: "invalid id $%"]}
+        post "/user_groups", @params
+      end
+
+      it "returns 422 Bad Request" do
+        expect(response).not_to be_success
+        expect(response.status).to eq(422)
+      end
+
+      it "does't change the number of mac_addresses" do
+        expect{
+          post "/user_groups", @params
+        }.not_to change(UserGroup, :count)
+      end
+    end
+
+    context "with invalid JSON structure" do
+      before do
+        @params = '{"a": 1'
+        post "/user_groups", @params
+      end
+
+      it "returns 400 Bad Request" do
+        expect(response).not_to be_success
+        expect(response.status).to eq(400)
+      end
+    end
   end
 
   describe "DELETE /userGroups" do
@@ -82,9 +166,6 @@ describe "UserGroups" do
   end
 
 
-  describe "POST /userGroups/:id" do
-    skip
-  end
 
   describe "DELETE /userGroups/:id" do
     skip
