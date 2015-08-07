@@ -1,22 +1,26 @@
 require 'spec_helper'
 
 describe "UserGroups" do
+  let(:env_hash) do
+    { "Accept" => "application/json", "Content-Type" => "application/json" }
+  end
   describe "GET /userGroups" do
     before do
       @user_group1 = FactoryGirl.create(:user_group)
       @user_group2 = FactoryGirl.create(:user_group, id: 'UG2')
-      get "/user_groups"
     end
 
     let(:json) { JSON.parse(response.body, {:symbolize_names => true}) }
 
     context 'when a request is succeeded' do
       it 'returns an array of user_groups', autodoc: true do
+        get "/user_groups", nil, env_hash
         expect(json[0][:id]).to eq('UG1')
         expect(json[1][:id]).to eq('UG2')
       end
 
       it 'returns 200 OK' do
+        get "/user_groups", nil, env_hash
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
@@ -26,18 +30,19 @@ describe "UserGroups" do
   describe "GET /userGroups/:id" do
     before do
       @user_group = FactoryGirl.create(:user_group)
-      get "/user_groups/UG1"
     end
 
     let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
 
     context 'when a request is succeeded' do
       it 'returns 200 OK' do
+        get "/user_groups/UG1", nil, env_hash
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
 
       it 'returns user_group information hash',autodoc: true do
+        get "/user_groups/UG1", nil, env_hash
         expect(json[:id]).to eq('UG1')
       end
     end
@@ -71,7 +76,7 @@ describe "UserGroups" do
         @params = {user_group: [FactoryGirl.attributes_for(:user_group)]}
       end
 
-      it "creates a new user_group and return 201 Created",autodoc: true do
+      it "creates a new user_group and return 201 Created" do
         post "/user_groups", @params
         expect(response).to be_success
         expect(response.status).to eq(201)
@@ -94,7 +99,7 @@ describe "UserGroups" do
       end
 
       it "creates a new user_group and return 201 Created",autodoc: true do
-        post "/user_groups", @params
+        post "/user_groups", @params.to_json, env_hash
         expect(response).to be_success
         expect(response.status).to eq(201)
       end
@@ -171,10 +176,10 @@ describe "UserGroups" do
 
     context 'with valid request' do
       before do
-        delete '/user_groups/UG1'
+        delete '/user_groups/UG1',nil, env_hash
       end
 
-      it 'returns 204 No Content' do
+      it 'deletes a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end
@@ -207,9 +212,9 @@ describe "UserGroups" do
 
     context 'with valid request' do
       before do
-        patch '/user_groups/UG1', @params
+        patch '/user_groups/UG1', @params.to_json, env_hash
       end
-      it 'returns 204 No Content' do
+      it 'updates a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end

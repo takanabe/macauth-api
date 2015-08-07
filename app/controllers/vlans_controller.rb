@@ -45,7 +45,7 @@ class VlansController < ApplicationController
 
   # DELETE /vlans/1000
   def destroy
-    @vlan.destroy
+    @vlans.destroy
 
     head :no_content
   end

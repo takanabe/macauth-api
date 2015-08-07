@@ -1,17 +1,23 @@
 require 'spec_helper'
 
 describe "MacAddresses" do
+  let(:env_hash) do
+    { "Accept" => "application/json", "Content-Type" => "application/json" }
+  end
   describe "GET /mac_addresses" do
     before do
       @mac_address1 = FactoryGirl.create(:mac_address)
       @mac_address2 = FactoryGirl.create(:mac_address,id: "aabbccddeegg",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
-      get "/mac_addresses"
     end
 
+    let(:env_hash) do
+      { "Accept" => "application/json", "Content-Type" => "application/json" }
+    end
     let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
 
     context 'when a request is succeeded' do
-      it 'returns array of Mac Addresses', autodoc: true do
+      it 'returns an array of Mac Addresses', autodoc: true do
+        get "/mac_addresses", nil,env_hash
         expect(json[0][:id]).to eq('aabbccddeeff')
         expect(json[0][:user_group_id]).to eq('UG1')
         expect(json[0][:vlan_id]).to eq(1000)
@@ -24,6 +30,7 @@ describe "MacAddresses" do
       end
 
       it 'returns 200 OK' do
+        get "/mac_addresses", env_hash
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
@@ -33,7 +40,10 @@ describe "MacAddresses" do
   describe "GET /mac_addresses/:id" do
     before do
       @mac_address1 = FactoryGirl.create(:mac_address)
-      get "/mac_addresses/aabbccddeeff"
+    end
+
+    let(:env_hash) do
+      { "Accept" => "application/json", "Content-Type" => "application/json" }
     end
 
     let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
@@ -41,11 +51,13 @@ describe "MacAddresses" do
     context 'when a request is succeeded' do
 
       it 'returns 200 OK' do
+        get "/mac_addresses/aabbccddeeff", nil,env_hash
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
 
-      it 'returns macaddress information hash',autodoc: true do
+      it 'returns a macaddress information hash',autodoc: true do
+        get "/mac_addresses/aabbccddeeff", nil,env_hash
         expect(json[:id]).to eq('aabbccddeeff')
         expect(json[:user_group_id]).to eq('UG1')
         expect(json[:vlan_id]).to eq(1000)
@@ -59,26 +71,30 @@ describe "MacAddresses" do
       end
 
       it "should returns 404" do
-        get "/mac_address/aabbccddeeff"
+        get "/mac_addresses/aabbccddeeff",nil, env_hash
         expect(response.status).to eq(404)
       end
     end
 
     context "with non-existing mac_address id" do
       it "should returns 404" do
-        get "/mac_address/zzzzzzzzzzzz"
+        get "/mac_address/zzzzzzzzzzzz", nil, env_hash
         expect(response.status).to eq(404)
       end
     end
   end
 
   describe "POST /mac_addresses" do
+    let(:env_hash) do
+      { "Accept" => "application/json", "Content-Type" => "application/json" }
+    end
+
     context "with valid parameters" do
       before do
         @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
       end
 
-      it "creates a new mac_address and return 201 Created",autodoc: true do
+      it "creates a new mac_address and return 201 Created" do
         post "/mac_addresses", @params
         expect(response).to be_success
         expect(response.status).to eq(201)
@@ -101,7 +117,7 @@ describe "MacAddresses" do
       end
 
       it "creates a new mac_address and return 201 Created",autodoc: true do
-        post "/mac_addresses", @params
+        post "/mac_addresses", @params.to_json, env_hash
         expect(response).to be_success
         expect(response.status).to eq(201)
       end
@@ -205,10 +221,10 @@ describe "MacAddresses" do
 
     context 'with valid request' do
       before do
-        delete '/mac_addresses/aabbccddeeff'
+        delete '/mac_addresses/aabbccddeeff',nil,env_hash
       end
 
-      it 'returns 204 No Content' do
+      it 'deletes a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end
@@ -242,9 +258,9 @@ describe "MacAddresses" do
 
     context 'with valid request' do
       before do
-        patch '/mac_addresses/aabbccddeeff', @params
+        patch '/mac_addresses/aabbccddeeff',@params.to_json, env_hash
       end
-      it 'returns 204 No Content' do
+      it 'updates a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end
