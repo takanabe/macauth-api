@@ -21,27 +21,29 @@ Host: www.example.com
 ```
 HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
-Content-Length: 185
+Content-Length: 195
 Content-Type: application/json; charset=utf-8
-ETag: W/"78c3c7c5c640503cba17969bb55c2c55"
+ETag: W/"f5a9d8af8f029bdb394cf334656d1bbc"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: b4ebf3d7-a8bb-4b68-9536-c86eb049ec76
-X-Runtime: 0.011229
+X-Request-Id: f4be86c9-4741-4fc7-bc7a-dd75b479ce7f
+X-Runtime: 0.004835
 X-XSS-Protection: 1; mode=block
 
-[
-  {
-    "id": 1000,
-    "created_at": "2015-08-07T00:37:31.000Z",
-    "updated_at": "2015-08-07T00:37:31.000Z"
-  },
-  {
-    "id": 2000,
-    "created_at": "2015-08-07T00:37:31.000Z",
-    "updated_at": "2015-08-07T00:37:31.000Z"
-  }
-]
+{
+  "vlans": [
+    {
+      "id": 1000,
+      "created_at": "2015-10-10T03:17:18.000Z",
+      "updated_at": "2015-10-10T03:17:18.000Z"
+    },
+    {
+      "id": 2000,
+      "created_at": "2015-10-10T03:17:18.000Z",
+      "updated_at": "2015-10-10T03:17:18.000Z"
+    }
+  ]
+}
 ```
 
 
@@ -68,17 +70,17 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 91
 Content-Type: application/json; charset=utf-8
-ETag: W/"2b957f24157b6d388efa3d82f67fb088"
+ETag: W/"cd5d2725dfd6b4188b38f0bb0ccbf767"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: fdaccd95-68b4-4e32-8de8-5ecbf5f79aca
-X-Runtime: 0.003574
+X-Request-Id: d2aee2cb-7c95-4f11-bb59-4b47b5dc5299
+X-Runtime: 0.003868
 X-XSS-Protection: 1; mode=block
 
 {
   "id": 1000,
-  "created_at": "2015-08-07T00:37:31.000Z",
-  "updated_at": "2015-08-07T00:37:31.000Z"
+  "created_at": "2015-10-10T03:17:18.000Z",
+  "updated_at": "2015-10-10T03:17:18.000Z"
 }
 ```
 
@@ -95,12 +97,12 @@ Creates a new vlan and return 201 created.
 ```
 POST /vlans HTTP/1.1
 Accept: application/json
-Content-Length: 46
+Content-Length: 47
 Content-Type: application/json
 Host: www.example.com
 
 {
-  "vlan": [
+  "vlans": [
     {
       "id": 1000
     },
@@ -123,15 +125,14 @@ Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 644fc1a1-3e4a-4f32-aeca-74b04c486342
-X-Runtime: 0.008026
+X-Request-Id: bdc70a28-d11f-4dba-8a10-e09a6ae4bf9d
+X-Runtime: 0.008576
 X-XSS-Protection: 1; mode=block
 
 {
   "succeeded": "201 Created"
 }
 ```
-
 
 
 
@@ -156,11 +157,10 @@ HTTP/1.1 204
 Cache-Control: no-cache
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 498d90df-2d55-4024-bcd8-b8c2365678e2
-X-Runtime: 0.004870
+X-Request-Id: 4b8a9a38-01d3-4781-b47d-4a5f5332e29e
+X-Runtime: 0.004506
 X-XSS-Protection: 1; mode=block
 ```
-
 
 
 
@@ -193,7 +193,7 @@ HTTP/1.1 204
 Cache-Control: no-cache
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 0e0ebc32-9d88-463a-85e5-889bc2ded898
-X-Runtime: 0.007818
+X-Request-Id: cebe9084-66ca-4e6d-a5b2-da542f2122ba
+X-Runtime: 0.004805
 X-XSS-Protection: 1; mode=block
 ```

@@ -21,34 +21,47 @@ Host: www.example.com
 ```
 HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
-Content-Length: 335
+Content-Length: 520
 Content-Type: application/json; charset=utf-8
-ETag: W/"cf7f7302d7dcf49efe023a37e175df7e"
+ETag: W/"cfabb89e8686cd9462cc4293daa36a8d"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 41a264b0-455c-49fa-8f01-b1659dc1d8b5
-X-Runtime: 0.017337
+X-Request-Id: 75d5ff22-cc9e-4897-b077-d4d802e538f1
+X-Runtime: 0.010100
 X-XSS-Protection: 1; mode=block
 
-[
-  {
-    "id": "aabbccddeeff",
-    "user_group_id": "UG1",
-    "vlan_id": 1000,
-    "information": "macbook air",
-    "created_at": "2015-08-07T00:37:30.000Z",
-    "updated_at": "2015-08-07T00:37:30.000Z"
-  },
-  {
-    "id": "aabbccddeegg",
-    "user_group_id": "UG2",
-    "vlan_id": 2000,
-    "information": "macbook pro",
-    "created_at": "2015-08-07T00:37:30.000Z",
-    "updated_at": "2015-08-07T00:37:30.000Z"
-  }
-]
+{
+  "mac_addresses": [
+    {
+      "id": "aabbccddeeff",
+      "user_group_id": "UG1",
+      "vlan_id": 1000,
+      "information": "macbook air",
+      "created_at": "2015-10-10T03:17:17.000Z",
+      "updated_at": "2015-10-10T03:17:17.000Z"
+    },
+    {
+      "id": "aabbccddeegg",
+      "user_group_id": "UG2",
+      "vlan_id": 2000,
+      "information": "macbook pro",
+      "created_at": "2015-10-10T03:17:17.000Z",
+      "updated_at": "2015-10-10T03:17:17.000Z"
+    },
+    {
+      "id": "aabbccddeezz",
+      "user_group_id": "UG1",
+      "vlan_id": 1000,
+      "information": "macbook air",
+      "created_at": "2015-08-07T06:33:18.000Z",
+      "updated_at": "2015-08-07T06:33:51.000Z"
+    }
+  ]
+}
 ```
+
+
+
 
 ## GET /mac_addresses/:id
 Returns a macaddress information hash.
@@ -71,11 +84,11 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 166
 Content-Type: application/json; charset=utf-8
-ETag: W/"973cff2c54b347045e21499cd0639c9b"
+ETag: W/"ffd69636916118be3af6bf800f7d8192"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 1e614299-6008-421b-aeeb-b202ede935d1
-X-Runtime: 0.002727
+X-Request-Id: a8d718f4-c892-483c-8f4f-ed905d205ebf
+X-Runtime: 0.003035
 X-XSS-Protection: 1; mode=block
 
 {
@@ -83,8 +96,8 @@ X-XSS-Protection: 1; mode=block
   "user_group_id": "UG1",
   "vlan_id": 1000,
   "information": "macbook air",
-  "created_at": "2015-08-07T00:37:30.000Z",
-  "updated_at": "2015-08-07T00:37:30.000Z"
+  "created_at": "2015-10-10T03:17:17.000Z",
+  "updated_at": "2015-10-10T03:17:17.000Z"
 }
 ```
 
@@ -101,12 +114,12 @@ Creates a new mac_address and return 201 created.
 ```
 POST /mac_addresses HTTP/1.1
 Accept: application/json
-Content-Length: 274
+Content-Length: 276
 Content-Type: application/json
 Host: www.example.com
 
 {
-  "mac_address": [
+  "mac_addresses": [
     {
       "id": "aabbccddeeff",
       "user_group_id": "UG1",
@@ -138,14 +151,15 @@ Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: ff364bc4-cd51-4763-80c7-5b24ee8df936
-X-Runtime: 0.019866
+X-Request-Id: 0dec78ff-cfec-4902-a711-96629a31a023
+X-Runtime: 0.021489
 X-XSS-Protection: 1; mode=block
 
 {
   "succeeded": "201 Created"
 }
 ```
+
 
 
 
@@ -171,12 +185,10 @@ HTTP/1.1 204
 Cache-Control: no-cache
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: fc51ef72-ddb5-4ff6-86c9-1476d16deaa2
-X-Runtime: 0.003704
+X-Request-Id: 091be8c9-585d-47b7-96d3-9ffd7f65efff
+X-Runtime: 0.003905
 X-XSS-Protection: 1; mode=block
 ```
-
-
 
 
 ## PATCH /mac_addresses/:id
@@ -189,19 +201,17 @@ Updates a target resource and returns 204 no content.
 ```
 PATCH /mac_addresses/aabbccddeeff HTTP/1.1
 Accept: application/json
-Content-Length: 104
+Content-Length: 102
 Content-Type: application/json
 Host: www.example.com
 
 {
-  "mac_address": [
-    {
-      "id": "aabbccddeeff",
-      "user_group_id": "UG1",
-      "vlan_id": 1000,
-      "information": "macbook air"
-    }
-  ]
+  "mac_address": {
+    "id": "aabbccddeeff",
+    "user_group_id": "UG1",
+    "vlan_id": 1000,
+    "information": "macbook air"
+  }
 }
 ```
 
@@ -211,7 +221,7 @@ HTTP/1.1 204
 Cache-Control: no-cache
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 4fa3443a-5623-4872-b7ee-eabb8f97f33a
-X-Runtime: 0.005665
+X-Request-Id: 12b9802b-b72a-414f-860e-1773702ecf74
+X-Runtime: 0.007531
 X-XSS-Protection: 1; mode=block
 ```

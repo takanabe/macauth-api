@@ -6,7 +6,7 @@ class MacAddressesController < ApplicationController
   def index
     @mac_addresses = MacAddress.all
 
-    render json: @mac_addresses
+    render json: {mac_addresses: @mac_addresses}
   end
 
   # GET /mac_addresses/aabbccddeeff
@@ -67,7 +67,7 @@ class MacAddressesController < ApplicationController
   def update
     @mac_address = MacAddress.find(params[:id])
 
-    if @mac_address.update(mac_address_params.first)
+    if @mac_address.update(mac_address_param)
       head :no_content
     else
       render json: @mac_address.errors, status: :unprocessable_entity
@@ -88,6 +88,10 @@ class MacAddressesController < ApplicationController
     end
 
     def mac_address_params
-      params.require(:mac_address).map { |m| m.permit(:id, :user_group_id, :vlan_id, :information)}
+      params.require(:mac_addresses).map { |m| m.permit(:id, :user_group_id, :vlan_id, :information)}
+    end
+
+    def mac_address_param
+      params.require(:mac_address).permit(:id, :user_group_id, :vlan_id, :information)
     end
 end
