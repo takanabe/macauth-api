@@ -42,7 +42,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  # config.order = "random"
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -58,4 +58,11 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/v/3-0/docs
   config.infer_spec_type_from_file_location!
+  Autodoc.configuration.path = "doc/api"
+  Autodoc.configuration.toc = true
+  Autodoc.configuration.toc_template = File.read(File.expand_path("../autodoc/templates/toc.md.erb", __FILE__))
+  Autodoc.configuration.template = File.read(File.expand_path("../autodoc/templates/document.md.erb", __FILE__))
+  # Autodoc.configuration.document_path_from_example = -> (example) do
+  #   example.file_path.gsub(%r<\./spec/requests/(.+)_spec\.rb>, '\1.md')
+  # end
 end

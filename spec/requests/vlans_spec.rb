@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe "Vlans" do
+  let(:env_hash) do
+    { "Accept" => "application/json", "Content-Type" => "application/json" }
+  end
   describe "GET /vlans" do
     before do
       @vlan1 = FactoryGirl.create(:vlan)
       @vlan2 = FactoryGirl.create(:vlan, id: 2000)
-      get "/vlans"
+      get "/vlans",nil, env_hash
     end
 
     let(:json) { JSON.parse(response.body, {:symbolize_names => true}) }
@@ -26,7 +29,7 @@ describe "Vlans" do
   describe "GET /vlans/:id" do
     before do
       @vlan = FactoryGirl.create(:vlan)
-      get "/vlans/1000"
+      get "/vlans/1000", nil, env_hash
     end
 
     let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
@@ -71,7 +74,7 @@ describe "Vlans" do
         @params = {vlan: [FactoryGirl.attributes_for(:vlan)]}
       end
 
-      it "creates a new vlan and return 201 Created",autodoc: true do
+      it "creates a new vlan and return 201 Created" do
         post "/vlans", @params
         expect(response).to be_success
         expect(response.status).to eq(201)
@@ -94,7 +97,7 @@ describe "Vlans" do
       end
 
       it "creates a new vlan and return 201 Created",autodoc: true do
-        post "/vlans", @params
+        post "/vlans", @params.to_json, env_hash
         expect(response).to be_success
         expect(response.status).to eq(201)
       end
@@ -162,6 +165,7 @@ describe "Vlans" do
     end
 
     subject {@vlan}
+
     it "decreases the number of vlans by -1" do
       expect{
         delete '/vlans/1000'
@@ -170,10 +174,10 @@ describe "Vlans" do
 
     context 'with valid request' do
       before do
-        delete '/vlans/1000'
+        delete '/vlans/1000', nil, env_hash
       end
 
-      it 'returns 204 No Content' do
+      it 'deletes a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end
@@ -207,9 +211,9 @@ describe "Vlans" do
 
     context 'with valid request' do
       before do
-        patch '/vlans/1000', @params
+        patch '/vlans/1000', @params.to_json, env_hash
       end
-      it 'returns 204 No Content' do
+      it 'updates a target resource and returns 204 No Content', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq(204)
       end
