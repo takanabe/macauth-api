@@ -11,6 +11,12 @@ module Mackun2Api
     # config.exceptions_app = ->(env) { ErrorsController.action(:handle_error).call(env) }
     config.middleware.insert_before ActionDispatch::ParamsParser, "JSONParseError"
     config.active_record.default_timezone = :utc
+    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options, :patch, :delete]
+      end
+    end
   end
 end
 

@@ -5,6 +5,7 @@ class MacAddressesController < ApplicationController
   # GET /mac_addresses
   def index
     @mac_addresses = MacAddress.all
+    @mac_addresses = MacAddress.all.order("created_at DESC")
 
     render json: {mac_addresses: @mac_addresses}
   end
