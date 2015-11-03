@@ -20,6 +20,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'activerecord-import'
+gem 'kaminari'
 
 
 group :development, :test, :local do

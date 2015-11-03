@@ -4,8 +4,8 @@ class MacAddressesController < ApplicationController
 
   # GET /mac_addresses
   def index
-    @mac_addresses = MacAddress.all
-    @mac_addresses = MacAddress.all.order("created_at DESC")
+    # pagination with kaminari gem(limit & offset are controlled by kaminari)
+    @mac_addresses = MacAddress.order('updated_at DESC').page(params[:page])
 
     render json: {mac_addresses: @mac_addresses}
   end
