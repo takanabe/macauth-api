@@ -11,8 +11,8 @@
 #
 
 class MacAddress < ActiveRecord::Base
-  # belongs_to :vlan
-  # belongs_to :user_group
+  belongs_to :vlan
+  belongs_to :user_group
 
   VALID_ID_REGEX = /\A[a-z0-9]{12}\z/
   VALID_USER_GROUP_ID_REGEX = /\A[A-Z0-9-]+\z/

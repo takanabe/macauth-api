@@ -6,13 +6,25 @@ class MacAddressesController < ApplicationController
   def index
     # pagination with kaminari gem(limit & offset are controlled by kaminari)
     @mac_addresses = MacAddress.order('updated_at DESC').page(params[:page])
+    @total_pages = MacAddress.page(params[:page]).total_count
+    @current_page_size = MacAddress.page(params[:page]).size
 
-    render json: {mac_addresses: @mac_addresses}
+    render json: {mac_addresses: @mac_addresses, total_pages: @total_pages, current_page_size: @current_page_size}
   end
 
   # GET /mac_addresses/aabbccddeeff
   def show
     render json: @mac_addresses
+  end
+
+  # GET /mac_addresses/search?q=xxxx
+  def search
+    keywords = params[:q].split(/[\s　]+/)
+    @q = MacAddress.order('updated_at DESC').page(params[:page]).ransack(:user_group_id_or_vlan_id_or_information_eq_any => keywords).result
+    @total_pages = @q.page(params[:page]).total_count
+    @current_page_size = @q.page(params[:page]).size
+
+    render json: {mac_addresses: @q, total_pages: @total_pages, current_page_size: @current_page_size}
   end
 
   # POST /mac_addresses

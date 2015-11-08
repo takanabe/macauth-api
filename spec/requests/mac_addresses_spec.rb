@@ -85,6 +85,9 @@ describe "MacAddresses" do
     end
   end
 
+  describe "GET /mac_addresses/search?q=search_term&page=nth" do
+  end
+
   describe "POST /mac_addresses" do
     let(:env_hash) do
       { "Accept" => "application/json", "Content-Type" => "application/json" }
