@@ -5,7 +5,7 @@ class UserGroupsController < ApplicationController
   def index
     @user_groups = UserGroup.all
 
-    render json: @user_groups
+    render json: {user_groups: @user_groups}
   end
 
   def show
@@ -38,7 +38,7 @@ class UserGroupsController < ApplicationController
   def update
     @user_group = UserGroup.find(params[:id])
 
-    if @user_group.update(user_group_params.first)
+    if @user_group.update(user_group_param.first)
       head :no_content
     else
       render json: @user_group.errors, status: :unprocessable_entity
@@ -52,7 +52,10 @@ class UserGroupsController < ApplicationController
     end
 
     def user_group_params
-       params.require(:user_group).map { |g| g.permit(:id)}
+       params.require(:user_groups).map { |g| g.permit(:id)}
     end
 
+    def user_group_param
+       params.require(:user_group).map { |g| g.permit(:id)}
+    end
 end

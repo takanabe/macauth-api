@@ -15,8 +15,8 @@ describe "UserGroups" do
     context 'when a request is succeeded' do
       it 'returns an array of user_groups', autodoc: true do
         get "/user_groups", nil, env_hash
-        expect(json[0][:id]).to eq('UG1')
-        expect(json[1][:id]).to eq('UG2')
+        expect(json[:user_groups][0][:id]).to eq('UG1')
+        expect(json[:user_groups][1][:id]).to eq('UG2')
       end
 
       it 'returns 200 OK' do
@@ -73,7 +73,7 @@ describe "UserGroups" do
   describe "POST /userGroups" do
     context "with valid parameters" do
       before do
-        @params = {user_group: [FactoryGirl.attributes_for(:user_group)]}
+        @params = {user_groups: [FactoryGirl.attributes_for(:user_group)]}
       end
 
       it "creates a new user_group and return 201 Created" do
@@ -95,7 +95,7 @@ describe "UserGroups" do
         @user_group2 = FactoryGirl.attributes_for(:user_group,id: 'UG2')
         @user_group3 = FactoryGirl.attributes_for(:user_group,id: 'UG3')
 
-        @params = {user_group: [@user_group1, @user_group2, @user_group3]}
+        @params = {user_groups: [@user_group1, @user_group2, @user_group3]}
       end
 
       it "creates a new user_group and return 201 Created",autodoc: true do
@@ -131,7 +131,7 @@ describe "UserGroups" do
 
     context "with invalid parameter format" do
       before do
-        @params = {user_group: [FactoryGirl.attributes_for(:user_group),id: "invalid id $%"]}
+        @params = {user_groups: [FactoryGirl.attributes_for(:user_group),id: "invalid id $%"]}
         post "/user_groups", @params
       end
 

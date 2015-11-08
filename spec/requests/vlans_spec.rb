@@ -15,8 +15,8 @@ describe "Vlans" do
 
     context 'when a request is succeeded' do
       it 'returns an array of vlans', autodoc: true do
-        expect(json[0][:id]).to eq(1000)
-        expect(json[1][:id]).to eq(2000)
+        expect(json[:vlans][0][:id]).to eq(1000)
+        expect(json[:vlans][1][:id]).to eq(2000)
       end
 
       it 'returns 200 OK' do
@@ -71,7 +71,7 @@ describe "Vlans" do
   describe "POST /vlans" do
     context "with valid parameters" do
       before do
-        @params = {vlan: [FactoryGirl.attributes_for(:vlan)]}
+        @params = {vlans: [FactoryGirl.attributes_for(:vlan)]}
       end
 
       it "creates a new vlan and return 201 Created" do
@@ -93,7 +93,7 @@ describe "Vlans" do
         @vlan2 = FactoryGirl.attributes_for(:vlan,id: 2000)
         @vlan3 = FactoryGirl.attributes_for(:vlan,id: 3000)
 
-        @params = {vlan: [@vlan1, @vlan2, @vlan3]}
+        @params = {vlans: [@vlan1, @vlan2, @vlan3]}
       end
 
       it "creates a new vlan and return 201 Created",autodoc: true do
@@ -129,7 +129,7 @@ describe "Vlans" do
 
     context "with invalid parameter format" do
       before do
-        @params = {vlan: [FactoryGirl.attributes_for(:vlan),id: "invalid id $%"]}
+        @params = {vlans: [FactoryGirl.attributes_for(:vlan),id: "invalid id $%"]}
         post "/vlans", @params
       end
 

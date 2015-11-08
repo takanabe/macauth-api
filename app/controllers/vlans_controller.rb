@@ -5,7 +5,7 @@ class VlansController < ApplicationController
   def index
     @vlans = Vlan.all
 
-    render json: @vlans
+    render json: {vlans: @vlans}
   end
 
   # GET /vlans/1000
@@ -35,7 +35,7 @@ class VlansController < ApplicationController
   def update
     @vlan = Vlan.find(params[:id])
 
-    if @vlan.update(vlan_params.first)
+    if @vlan.update(vlan_param.first)
       head :no_content
     else
       render json: @vlan.errors, status: :unprocessable_entity
@@ -57,7 +57,10 @@ class VlansController < ApplicationController
     end
 
     def vlan_params
-      params.require(:vlan).map { |v| v.permit(:id)}
+      params.require(:vlans).map { |v| v.permit(:id)}
     end
 
+    def vlan_param
+      params.require(:vlan).map { |v| v.permit(:id)}
+    end
 end

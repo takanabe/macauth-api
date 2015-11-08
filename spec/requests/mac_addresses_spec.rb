@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry-byebug'
 
 describe "MacAddresses" do
   let(:env_hash) do
@@ -18,15 +19,15 @@ describe "MacAddresses" do
     context 'when a request is succeeded' do
       it 'returns an array of Mac Addresses', autodoc: true do
         get "/mac_addresses", nil,env_hash
-        expect(json[0][:id]).to eq('aabbccddeeff')
-        expect(json[0][:user_group_id]).to eq('UG1')
-        expect(json[0][:vlan_id]).to eq(1000)
-        expect(json[0][:information]).to eq('macbook air')
+        expect(json[:mac_addresses][0][:id]).to eq('aabbccddeeff')
+        expect(json[:mac_addresses][0][:user_group_id]).to eq('UG1')
+        expect(json[:mac_addresses][0][:vlan_id]).to eq(1000)
+        expect(json[:mac_addresses][0][:information]).to eq('macbook air')
 
-        expect(json[1][:id]).to eq('aabbccddeegg')
-        expect(json[1][:user_group_id]).to eq('UG2')
-        expect(json[1][:vlan_id]).to eq(2000)
-        expect(json[1][:information]).to eq('macbook pro')
+        expect(json[:mac_addresses][1][:id]).to eq('aabbccddeegg')
+        expect(json[:mac_addresses][1][:user_group_id]).to eq('UG2')
+        expect(json[:mac_addresses][1][:vlan_id]).to eq(2000)
+        expect(json[:mac_addresses][1][:information]).to eq('macbook pro')
       end
 
       it 'returns 200 OK' do
@@ -84,6 +85,9 @@ describe "MacAddresses" do
     end
   end
 
+  describe "GET /mac_addresses/search?q=search_term&page=nth" do
+  end
+
   describe "POST /mac_addresses" do
     let(:env_hash) do
       { "Accept" => "application/json", "Content-Type" => "application/json" }
@@ -91,7 +95,7 @@ describe "MacAddresses" do
 
     context "with valid parameters" do
       before do
-        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
+        @params = {mac_addresses: [FactoryGirl.attributes_for(:mac_address)]}
       end
 
       it "creates a new mac_address and return 201 Created" do
@@ -113,7 +117,7 @@ describe "MacAddresses" do
         @mac_address2 = FactoryGirl.attributes_for(:mac_address,id: "aabbccddeegg",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
         @mac_address3 = FactoryGirl.attributes_for(:mac_address,id: "aabbccddeehh",user_group_id: "UG3",vlan_id: 3000, information: "macbook")
 
-        @params = {mac_address: [@mac_address1, @mac_address2, @mac_address3]}
+        @params = {mac_addresses: [@mac_address1, @mac_address2, @mac_address3]}
       end
 
       it "creates a new mac_address and return 201 Created",autodoc: true do
@@ -149,8 +153,8 @@ describe "MacAddresses" do
 
     context "with invalid parameter format" do
       before do
-        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
-        @params[:mac_address][0][:id] = "invalid id length"
+        @params = {mac_addresses: [FactoryGirl.attributes_for(:mac_address)]}
+        @params[:mac_addresses][0][:id] = "invalid id length"
         post "/mac_addresses", @params
       end
 
@@ -251,7 +255,7 @@ describe "MacAddresses" do
   describe "PATCH /mac_addresses/:id" do
     before do
       @mac_address = FactoryGirl.create(:mac_address)
-      @params = {mac_address: [FactoryGirl.attributes_for(:mac_address)]}
+      @params = {mac_address: FactoryGirl.attributes_for(:mac_address)}
     end
 
     subject {@mac_address}
@@ -280,7 +284,7 @@ describe "MacAddresses" do
 
     context 'with invalid id length request' do
       before do
-        @params = {mac_address: [FactoryGirl.attributes_for(:mac_address,id: "invalid id length")]}
+        @params = {mac_address: FactoryGirl.attributes_for(:mac_address,id: "invalid id length")}
         patch '/mac_addresses/aabbccddeeff', @params
       end
 

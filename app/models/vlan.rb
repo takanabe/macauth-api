@@ -8,6 +8,8 @@
 #
 
 class Vlan < ActiveRecord::Base
+  has_many :mac_addresses#, dependent: :destroy
+
 
   VALID_VLAN_ID_REGEX = /\A\d{1,4}\z/
   validates :id, presence: true, length: { in: 1..4 }, format: {with: VALID_VLAN_ID_REGEX},

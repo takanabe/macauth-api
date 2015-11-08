@@ -14,10 +14,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'annotate'
 gem 'rack-dev-mark'
+gem 'rack-cors', :require => 'rack/cors'
+
 # gem 'global'
 gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'activerecord-import'
+gem 'kaminari'
+gem "ransack"
 
 
 group :development, :test, :local do
