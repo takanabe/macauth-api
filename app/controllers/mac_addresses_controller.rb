@@ -4,12 +4,16 @@ class MacAddressesController < ApplicationController
 
   # GET /mac_addresses
   def index
-    # pagination with kaminari gem(limit & offset are controlled by kaminari)
-    @mac_addresses = MacAddress.order('updated_at DESC').page(params[:page])
-    @total_pages = MacAddress.page(params[:page]).total_count
-    @current_page_size = MacAddress.page(params[:page]).size
+    if params[:all]
+      @mac_addresses = MacAddress.all
+      render json: {mac_addresses: @mac_addresses}
+    else
+      @mac_addresses = MacAddress.order('updated_at DESC').page(params[:page])
+      @total_pages = MacAddress.page(params[:page]).total_count
+      @current_page_size = MacAddress.page(params[:page]).size
 
-    render json: {mac_addresses: @mac_addresses, total_pages: @total_pages, current_page_size: @current_page_size}
+      render json: {mac_addresses: @mac_addresses, total_pages: @total_pages, current_page_size: @current_page_size}
+    end
   end
 
   # GET /mac_addresses/aabbccddeeff
@@ -20,7 +24,7 @@ class MacAddressesController < ApplicationController
   # GET /mac_addresses/search?q=xxxx
   def search
     keywords = params[:q].split(/[\s　]+/)
-    @q = MacAddress.order('updated_at DESC').page(params[:page]).ransack(:user_group_id_or_vlan_id_or_information_eq_any => keywords).result
+    @q = MacAddress.order('updated_at DESC').page(params[:page]).ransack(:id_or_user_group_id_or_vlan_id_or_information_eq_any => keywords).result
     @total_pages = @q.page(params[:page]).total_count
     @current_page_size = @q.page(params[:page]).size
 
