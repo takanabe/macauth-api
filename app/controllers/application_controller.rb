@@ -29,4 +29,14 @@ class ApplicationController < ActionController::API
   def handle_root_request
     render json: { message: 'This is Mackun2 API !!' }, status: 200
   end
+
+  before_action :http_header_log
+
+  private
+
+    def http_header_log
+      logger.info("* Request URL: #{request.url}")
+      logger.info("* Request Method: #{request.method}")
+      logger.info("* Request Heaer Content Type: #{request.headers["Content-Type"]}")
+    end
 end
