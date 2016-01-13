@@ -8,7 +8,7 @@ describe "MacAddresses" do
   describe "GET /mac_addresses" do
     before do
       @mac_address1 = FactoryGirl.create(:mac_address)
-      @mac_address2 = FactoryGirl.create(:mac_address,id: "aabbccddeegg",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
+      @mac_address2 = FactoryGirl.create(:mac_address,id: "bbaabbccddee",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
     end
 
     let(:env_hash) do
@@ -24,16 +24,57 @@ describe "MacAddresses" do
         expect(json[:mac_addresses][0][:vlan_id]).to eq(1000)
         expect(json[:mac_addresses][0][:information]).to eq('macbook air')
 
-        expect(json[:mac_addresses][1][:id]).to eq('aabbccddeegg')
+        expect(json[:mac_addresses][1][:id]).to eq('bbaabbccddee')
         expect(json[:mac_addresses][1][:user_group_id]).to eq('UG2')
         expect(json[:mac_addresses][1][:vlan_id]).to eq(2000)
         expect(json[:mac_addresses][1][:information]).to eq('macbook pro')
+
       end
 
       it 'returns 200 OK' do
         get "/mac_addresses", env_hash
         expect(response).to be_success
         expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe "GET /mac_addresses/search" do
+    before do
+      @mac_address1 = FactoryGirl.create(:mac_address)
+      @mac_address2 = FactoryGirl.create(:mac_address,id: "bbaabbccddee",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
+      @mac_address3 = FactoryGirl.create(:mac_address, id: "bbaabbccddff",user_group_id: "UG2",vlan_id: 2000, information: "macbook air")
+    end
+
+    let(:env_hash) do
+      { "Accept" => "application/json", "Content-Type" => "application/json" }
+    end
+
+    let(:json) { JSON.parse(response.body,{:symbolize_names => true}) }
+
+    context 'when a request is succeeded' do
+      it 'returns 200 OK' do
+        get "/mac_addresses/search?q=UG2&page=1", nil,env_hash
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+
+      it 'returns 2 data' do
+        get "/mac_addresses/search?q=UG2&page=1", nil,env_hash
+        expect(json[:mac_addresses].length).to eq(2)
+      end
+
+      it 'returns keyword-matched data' ,autodoc: true do
+        get "/mac_addresses/search?q=UG2&page=1", nil,env_hash
+
+        expect(json[:mac_addresses][0][:id]).to eq('bbaabbccddee')
+        expect(json[:mac_addresses][0][:user_group_id]).to eq('UG2')
+        expect(json[:mac_addresses][0][:vlan_id]).to eq(2000)
+        expect(json[:mac_addresses][0][:information]).to eq('macbook pro')
+        expect(json[:mac_addresses][1][:id]).to eq('bbaabbccddff')
+        expect(json[:mac_addresses][1][:user_group_id]).to eq('UG2')
+        expect(json[:mac_addresses][1][:vlan_id]).to eq(2000)
+        expect(json[:mac_addresses][1][:information]).to eq('macbook air')
       end
     end
   end
@@ -85,8 +126,6 @@ describe "MacAddresses" do
     end
   end
 
-  describe "GET /mac_addresses/search?q=search_term&page=nth" do
-  end
 
   describe "POST /mac_addresses" do
     let(:env_hash) do
@@ -114,8 +153,8 @@ describe "MacAddresses" do
     context "with multiple valid parameters" do
       before do
         @mac_address1 = FactoryGirl.attributes_for(:mac_address)
-        @mac_address2 = FactoryGirl.attributes_for(:mac_address,id: "aabbccddeegg",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
-        @mac_address3 = FactoryGirl.attributes_for(:mac_address,id: "aabbccddeehh",user_group_id: "UG3",vlan_id: 3000, information: "macbook")
+        @mac_address2 = FactoryGirl.attributes_for(:mac_address,id: "aaaabbccddee",user_group_id: "UG2",vlan_id: 2000, information: "macbook pro")
+        @mac_address3 = FactoryGirl.attributes_for(:mac_address,id: "aabbccddeeee",user_group_id: "UG3",vlan_id: 3000, information: "macbook")
 
         @params = {mac_addresses: [@mac_address1, @mac_address2, @mac_address3]}
       end

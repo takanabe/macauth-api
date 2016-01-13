@@ -1,7 +1,8 @@
-# Mackun2 API Document
+# macauth API Document
 ## Table of Contents
 * [mac_addresses.md](mac_addresses.md)
  * [GET /mac_addresses](mac_addresses.md#get-mac_addresses)
+ * [GET /mac_addresses/search](mac_addresses.md#get-mac_addressessearch)
  * [GET /mac_addresses/:id](mac_addresses.md#get-mac_addressesid)
  * [POST /mac_addresses](mac_addresses.md#post-mac_addresses)
  * [DELETE /mac_addresses/:id](mac_addresses.md#delete-mac_addressesid)

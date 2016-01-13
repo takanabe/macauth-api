@@ -1,5 +1,5 @@
 
-# Mackun2 userGroups API
+# macauth userGroups API
 
 
 ## GET /userGroups
@@ -23,24 +23,25 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 203
 Content-Type: application/json; charset=utf-8
-ETag: W/"a2b7f229efb2c6b60a630d91942602a4"
+ETag: W/"807c2918fc92fd9cd75552b0beb61480"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 8e8d8c4f-e51f-441f-b581-3a5e7bc590c4
-X-Runtime: 0.006427
+X-Request-Id: 5b52165e-7e66-4e51-93b2-6cca5150d5d8
+X-Runtime: 0.004749
 X-XSS-Protection: 1; mode=block
 
 {
   "user_groups": [
     {
       "id": "UG1",
-      "created_at": "2015-10-10T03:17:18.000Z",
-      "updated_at": "2015-10-10T03:17:18.000Z"
+      "created_at": "2016-01-13T07:35:25.000Z",
+      "updated_at": "2016-01-13T07:35:25.000Z"
     },
     {
       "id": "UG2",
-      "created_at": "2015-10-10T03:17:18.000Z",
-      "updated_at": "2015-10-10T03:17:18.000Z"
+      "created_at": "2016-01-13T07:35:25.000Z",
+      "updated_at": "2016-01-13T07:35:25.000Z"
     }
   ]
 }
@@ -69,20 +70,20 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 92
 Content-Type: application/json; charset=utf-8
-ETag: W/"7287b7f0a597b0b74cd1864ff19d30c3"
+ETag: W/"0c538cb2752c97bad06c7c98c9995b45"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: d4e0a267-97c6-4ecf-aa8f-aca95121f735
-X-Runtime: 0.003378
+X-Request-Id: b9e4ebe3-41c0-4e47-af56-ee84a587e69f
+X-Runtime: 0.003176
 X-XSS-Protection: 1; mode=block
 
 {
   "id": "UG1",
-  "created_at": "2015-10-10T03:17:18.000Z",
-  "updated_at": "2015-10-10T03:17:18.000Z"
+  "created_at": "2016-01-13T07:35:25.000Z",
+  "updated_at": "2016-01-13T07:35:25.000Z"
 }
 ```
-
 
 
 
@@ -122,17 +123,17 @@ Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 27
 Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 662b8197-a01e-45fc-9313-b10c8f9f0ec2
-X-Runtime: 0.010088
+X-Request-Id: 2f50c19c-15b3-4c7b-9ecf-a77b829322ef
+X-Runtime: 0.007591
 X-XSS-Protection: 1; mode=block
 
 {
   "succeeded": "201 Created"
 }
 ```
-
 
 
 
@@ -155,12 +156,14 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 664aefb2-9935-4381-9619-efd02b85d7a4
-X-Runtime: 0.003935
+X-Request-Id: 78ad07c4-44af-4539-a166-d6eabcf729df
+X-Runtime: 0.004585
 X-XSS-Protection: 1; mode=block
 ```
+
 
 
 
@@ -191,9 +194,10 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 8fbc922a-e328-4091-801e-bae0d26f161c
-X-Runtime: 0.006511
+X-Request-Id: 4dee5ca6-ff43-49a4-bdfb-9028a240c46e
+X-Runtime: 0.005613
 X-XSS-Protection: 1; mode=block
 ```

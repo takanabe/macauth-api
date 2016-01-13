@@ -1,5 +1,5 @@
 
-# Mackun2 vlans API
+# macauth vlans API
 
 
 ## GET /vlans
@@ -23,24 +23,25 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 195
 Content-Type: application/json; charset=utf-8
-ETag: W/"f5a9d8af8f029bdb394cf334656d1bbc"
+ETag: W/"22775ae37d7a870db80685fd9896f73d"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: f4be86c9-4741-4fc7-bc7a-dd75b479ce7f
-X-Runtime: 0.004835
+X-Request-Id: a499bbde-7bfe-4a7a-bac3-3db05057af41
+X-Runtime: 0.006189
 X-XSS-Protection: 1; mode=block
 
 {
   "vlans": [
     {
       "id": 1000,
-      "created_at": "2015-10-10T03:17:18.000Z",
-      "updated_at": "2015-10-10T03:17:18.000Z"
+      "created_at": "2016-01-13T07:35:25.000Z",
+      "updated_at": "2016-01-13T07:35:25.000Z"
     },
     {
       "id": 2000,
-      "created_at": "2015-10-10T03:17:18.000Z",
-      "updated_at": "2015-10-10T03:17:18.000Z"
+      "created_at": "2016-01-13T07:35:25.000Z",
+      "updated_at": "2016-01-13T07:35:25.000Z"
     }
   ]
 }
@@ -70,17 +71,18 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 91
 Content-Type: application/json; charset=utf-8
-ETag: W/"cd5d2725dfd6b4188b38f0bb0ccbf767"
+ETag: W/"72b5f96d675a1315851fa9198a68608c"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: d2aee2cb-7c95-4f11-bb59-4b47b5dc5299
-X-Runtime: 0.003868
+X-Request-Id: 6c4535fd-a5ec-48f8-8b9e-b75d02c62c92
+X-Runtime: 0.003316
 X-XSS-Protection: 1; mode=block
 
 {
   "id": 1000,
-  "created_at": "2015-10-10T03:17:18.000Z",
-  "updated_at": "2015-10-10T03:17:18.000Z"
+  "created_at": "2016-01-13T07:35:25.000Z",
+  "updated_at": "2016-01-13T07:35:25.000Z"
 }
 ```
 
@@ -123,16 +125,18 @@ Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 27
 Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: bdc70a28-d11f-4dba-8a10-e09a6ae4bf9d
-X-Runtime: 0.008576
+X-Request-Id: 0e2a3712-5841-4889-b195-6db7dcd978af
+X-Runtime: 0.008472
 X-XSS-Protection: 1; mode=block
 
 {
   "succeeded": "201 Created"
 }
 ```
+
 
 
 
@@ -155,12 +159,14 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 4b8a9a38-01d3-4781-b47d-4a5f5332e29e
-X-Runtime: 0.004506
+X-Request-Id: b8a1dd74-1338-46c7-ad83-dbe4f63d7ccb
+X-Runtime: 0.003440
 X-XSS-Protection: 1; mode=block
 ```
+
 
 
 
@@ -191,9 +197,10 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: cebe9084-66ca-4e6d-a5b2-da542f2122ba
-X-Runtime: 0.004805
+X-Request-Id: 8e1d9e79-d1f6-4ea9-8ff6-10b8a27913dd
+X-Runtime: 0.005524
 X-XSS-Protection: 1; mode=block
 ```

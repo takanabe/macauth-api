@@ -10,7 +10,7 @@
 class UserGroup < ActiveRecord::Base
   has_many :mac_addresses, dependent: :destroy
 
-  VALID_ID_REGEX = /\A[A-Z0-9-]+\z/
+  VALID_ID_REGEX = /\A[A-Za-z0-9-]+\z/
   validates :id, presence: true,  format: {with: VALID_ID_REGEX},
              uniqueness: true
 

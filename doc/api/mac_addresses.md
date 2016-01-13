@@ -1,5 +1,5 @@
 
-# Mackun2 mac_addresses API
+# macauth mac_addresses API
 
 
 ## GET /mac_addresses
@@ -21,13 +21,14 @@ Host: www.example.com
 ```
 HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
-Content-Length: 520
+Content-Length: 391
 Content-Type: application/json; charset=utf-8
-ETag: W/"cfabb89e8686cd9462cc4293daa36a8d"
+ETag: W/"897333cb81db0cc76594c7a18b05722f"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 75d5ff22-cc9e-4897-b077-d4d802e538f1
-X-Runtime: 0.010100
+X-Request-Id: e42a6880-3e14-4765-877f-414767416e4c
+X-Runtime: 0.020546
 X-XSS-Protection: 1; mode=block
 
 {
@@ -37,29 +38,76 @@ X-XSS-Protection: 1; mode=block
       "user_group_id": "UG1",
       "vlan_id": 1000,
       "information": "macbook air",
-      "created_at": "2015-10-10T03:17:17.000Z",
-      "updated_at": "2015-10-10T03:17:17.000Z"
+      "created_at": "2016-01-13T07:35:24.000Z",
+      "updated_at": "2016-01-13T07:35:24.000Z"
     },
     {
-      "id": "aabbccddeegg",
+      "id": "bbaabbccddee",
       "user_group_id": "UG2",
       "vlan_id": 2000,
       "information": "macbook pro",
-      "created_at": "2015-10-10T03:17:17.000Z",
-      "updated_at": "2015-10-10T03:17:17.000Z"
-    },
-    {
-      "id": "aabbccddeezz",
-      "user_group_id": "UG1",
-      "vlan_id": 1000,
-      "information": "macbook air",
-      "created_at": "2015-08-07T06:33:18.000Z",
-      "updated_at": "2015-08-07T06:33:51.000Z"
+      "created_at": "2016-01-13T07:35:24.000Z",
+      "updated_at": "2016-01-13T07:35:24.000Z"
     }
-  ]
+  ],
+  "total_pages": 2,
+  "current_page_size": 2
 }
 ```
 
+
+## GET /mac_addresses/search
+Returns keyword-matched data.
+
+
+### Example
+
+#### Request
+```
+GET /mac_addresses/search?q=UG2&page=1 HTTP/1.1
+Accept: application/json
+Content-Length: 0
+Content-Type: application/json
+Host: www.example.com
+```
+
+#### Response
+```
+HTTP/1.1 200
+Cache-Control: max-age=0, private, must-revalidate
+Content-Length: 391
+Content-Type: application/json; charset=utf-8
+ETag: W/"41616e4d65a716a20ced20ef15eef923"
+Vary: Origin
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Request-Id: 7c4615e4-c82b-4e0c-81d1-f1ce1de69c66
+X-Runtime: 0.011377
+X-XSS-Protection: 1; mode=block
+
+{
+  "mac_addresses": [
+    {
+      "id": "bbaabbccddee",
+      "user_group_id": "UG2",
+      "vlan_id": 2000,
+      "information": "macbook pro",
+      "created_at": "2016-01-13T07:35:24.000Z",
+      "updated_at": "2016-01-13T07:35:24.000Z"
+    },
+    {
+      "id": "bbaabbccddff",
+      "user_group_id": "UG2",
+      "vlan_id": 2000,
+      "information": "macbook air",
+      "created_at": "2016-01-13T07:35:24.000Z",
+      "updated_at": "2016-01-13T07:35:24.000Z"
+    }
+  ],
+  "total_pages": 2,
+  "current_page_size": 2
+}
+```
 
 
 
@@ -84,11 +132,12 @@ HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 166
 Content-Type: application/json; charset=utf-8
-ETag: W/"ffd69636916118be3af6bf800f7d8192"
+ETag: W/"cc108365e0fabffe00281199c8002ebb"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: a8d718f4-c892-483c-8f4f-ed905d205ebf
-X-Runtime: 0.003035
+X-Request-Id: f495a6b7-b4b6-49f7-9c5c-390ca0c83c6f
+X-Runtime: 0.005151
 X-XSS-Protection: 1; mode=block
 
 {
@@ -96,8 +145,8 @@ X-XSS-Protection: 1; mode=block
   "user_group_id": "UG1",
   "vlan_id": 1000,
   "information": "macbook air",
-  "created_at": "2015-10-10T03:17:17.000Z",
-  "updated_at": "2015-10-10T03:17:17.000Z"
+  "created_at": "2016-01-13T07:35:24.000Z",
+  "updated_at": "2016-01-13T07:35:24.000Z"
 }
 ```
 
@@ -127,13 +176,13 @@ Host: www.example.com
       "information": "macbook air"
     },
     {
-      "id": "aabbccddeegg",
+      "id": "aaaabbccddee",
       "user_group_id": "UG2",
       "vlan_id": 2000,
       "information": "macbook pro"
     },
     {
-      "id": "aabbccddeehh",
+      "id": "aabbccddeeee",
       "user_group_id": "UG3",
       "vlan_id": 3000,
       "information": "macbook"
@@ -149,17 +198,17 @@ Cache-Control: max-age=0, private, must-revalidate
 Content-Length: 27
 Content-Type: application/json; charset=utf-8
 ETag: W/"12eb7eef34945461029447e2efac2944"
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 0dec78ff-cfec-4902-a711-96629a31a023
-X-Runtime: 0.021489
+X-Request-Id: 49da3a57-5708-42ce-bdbc-c45c146616b0
+X-Runtime: 0.022236
 X-XSS-Protection: 1; mode=block
 
 {
   "succeeded": "201 Created"
 }
 ```
-
 
 
 
@@ -183,12 +232,15 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 091be8c9-585d-47b7-96d3-9ffd7f65efff
-X-Runtime: 0.003905
+X-Request-Id: ad15550f-bacc-4ca6-884b-9283e9ce7036
+X-Runtime: 0.004096
 X-XSS-Protection: 1; mode=block
 ```
+
+
 
 
 ## PATCH /mac_addresses/:id
@@ -219,9 +271,10 @@ Host: www.example.com
 ```
 HTTP/1.1 204
 Cache-Control: no-cache
+Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 12b9802b-b72a-414f-860e-1773702ecf74
-X-Runtime: 0.007531
+X-Request-Id: f2c04213-b62f-4842-a74a-ae60d23ba242
+X-Runtime: 0.005265
 X-XSS-Protection: 1; mode=block
 ```

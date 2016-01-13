@@ -19,8 +19,8 @@ listen 3000
 pid "/tmp/unicorn.pid"
 
 # Set the path of the log files inside the log folder of the testapp
-# stderr_path "#{@app_path}/log/unicorn.stderr.log"
-# stdout_path "#{@app_path}/log/unicorn.stdout.log"
+stderr_path File.expand_path('log/unicorn.log', "#{@app_path}")
+stdout_path File.expand_path('log/unicorn.log', "#{@app_path}")
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
