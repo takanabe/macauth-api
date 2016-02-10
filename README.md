@@ -1,5 +1,5 @@
-## Mackun2-api
+## Macauth API
 
 ### Usage
 
-Please read [Wiki](https://github.com/takanabe/mackun2-api/wiki).
+Please read [Wiki](https://github.com/takanabe/macauth-api/wiki).
